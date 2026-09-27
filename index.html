@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Video Services - Interior Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif;}
+  body{background:#f9f6f1; color:#111;}
+  .header{text-align:center; padding:60px 20px 30px;}
+  .header h1{font-size:48px; font-weight:800; letter-spacing:-1.5px;}
+  .header h1 span{color:#c4a484;}
+  .header p{color:#888; font-size:17px; margin-top:10px;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:26px; max-width:1350px; margin:0 auto; padding:20px;}
+  .card{background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.06); cursor:pointer; transition:0.35s; position:relative;}
+  .card:hover{transform:translateY(-8px); box-shadow:0 25px 60px rgba(0,0,0,0.14);}
+  .card video{width:100%; height:230px; object-fit:cover; display:block; background:#000;}
+  .play{position:absolute; top:92px; left:50%; transform:translateX(-50%); background:rgba(255,255,255,0.95); width:62px; height:62px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; box-shadow:0 10px 25px rgba(0,0,0,0.25);}
+  .info{padding:18px 20px;}
+  .info h4{font-size:17px; font-weight:600; margin-bottom:4px;}
+  .info span{font-size:12px; color:#999; text-transform:uppercase; letter-spacing:1.2px;}
+  /* Modal */
+  #modal{display:none; position:fixed; inset:0; background:rgba(10,10,10,0.95); z-index:9999; align-items:center; justify-content:center; padding:20px;}
+  #modal.show{display:flex;}
+  #modal video{width:100%; max-width:1100px; height:auto; max-height:85vh; border-radius:16px; box-shadow:0 20px 80px rgba(0,0,0,0.8);}
+  #close{position:absolute; top:24px; right:24px; width:50px; height:50px; background:#222; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:30px; cursor:pointer; border:1px solid #333;}
+  footer{text-align:center; padding:40px; color:#aaa; font-size:13px;}
+  @media(max-width:600px){ .header h1{font-size:34px;} .card video{height:200px;} .play{top:78px;} }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Interior <span>Showcase</span></h1>
+  <p>12 Signature Projects — Click to watch in HD</p>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div id="modal" onclick="closeModal()">
+  <div id="close">×</div>
+  <video id="player" controls autoplay controlsList="nodownload"></video>
+</div>
+
+<footer>© 2026 Your Interior Brand — Crafting Luxury Spaces in Lagos</footer>
+
+<script>
+const videos = [
+  {title:"Modern Living Room", cat:"Luxury • Lekki", src:"https://www.w3schools.com/html/mov_bbb.mp4"},
+  {title:"Contemporary Kitchen", cat:"Kitchen Remodel", src:"https://www.w3schools.com/html/movie.mp4"},
+  {title:"Master Bedroom Suite", cat:"Minimalist Design", src:"https://www.w3schools.com/html/mov_bbb.mp4"},
+  {title:"Executive Bathroom", cat:"Marble & Gold", src:"https://www.w3schools.com/html/movie.mp4"},
+  {title:"Home Office Design", cat:"Corporate Style", src:"https://www.w3schools.com/html/mov_bbb.mp4"},
+  {title:"Elegant Dining Area", cat:"Lighting Design", src:"https://www.w3schools.com/html/movie.mp4"},
+  {title:"Walk-in Wardrobe", cat:"Closet System", src:"https://www.w3schools.com/html/mov_bbb.mp4"},
+  {title:"Building Exterior", cat:"Facade & Lights", src:"https://www.w3schools.com/html/movie.mp4"},
+  {title:"POP Ceiling Design", cat:"LED & POP", src:"https://www.w3schools.com/html/mov_bbb.mp4"},
+  {title:"Smart Home Setup", cat:"Automation", src:"https://www.w3schools.com/html/movie.mp4"},
+  {title:"Ikoyi Penthouse", cat:"Luxury • Ikoyi", src:"https://www.w3schools.com/html/mov_bbb.mp4"},
+  {title:"Before & After", cat:"Full Transformation", src:"https://www.w3schools.com/html/movie.mp4"},
+];
+
+const grid = document.getElementById('grid');
+grid.innerHTML = videos.map(v => `
+  <div class="card" onclick="openModal('${v.src}')">
+    <video muted preload="metadata"><source src="${v.src}#t=1"></video>
+    <div class="play">▶</div>
+    <div class="info"><h4>${v.title}</h4><span>${v.cat}</span></div>
+  </div>
+`).join('');
+
+function openModal(src){
+  document.getElementById('player').src = src;
+  document.getElementById('modal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('show');
+  const p = document.getElementById('player');
+  p.pause(); p.src = '';
+  document.body.style.overflow = 'auto';
+}
+</script>
+
+</body>
+    </html>
